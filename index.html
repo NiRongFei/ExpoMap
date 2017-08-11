@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>展会地图</title>
+
+    <link rel="stylesheet" href="node_modules/weui/dist/style/weui.min.css"/>
+    <link rel="stylesheet" href="node_modules/jquery-weui/dist/css/jquery-weui.min.css"/>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="node_modules/swiper/dist/css/swiper.min.css"/>
+
+
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+</head>
+<body ontouchstart="">
+
+<div id="expo-map">
+    <div id="expo-search">
+        <img class="expo-search-magn" src="img/icon_person.png"/>
+        <input class="expo-search-input" type="search" placeholder="查找展台"/>
+        <img class="expo-search-scan" src="img/icon_scan.png"/>
+    </div>
+
+    <div id="expo-message">
+        <span class="expo-message-intro">某个展台正在举行活动快来围观</span>
+        <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+        <i class="fa fa-close" aria-hidden="true"></i>
+    </div>
+
+    <button id="expo-btn-message" type="button">消息</button>
+
+    <!--<div id="expo-mapmode" class="btn-group-vertical" role="group">-->
+    <!--<button id="expo-btn-2D" class="btn btn-default" type="button">2D</button>-->
+    <!--<button id="expo-btn-3D" class="btn btn-default" type="button">3D</button>-->
+    <!--</div>-->
+
+    <button id="expo-btn-location" type="button">定位</button>
+
+    <button id="expo-btn-navi" type="button">导航</button>
+
+    <button id="expo-area-search" type="button">搜索展区</button>
+</div>
+
+<div id="expo-activity" class="weui-popup__container popup-bottom">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal">
+        <div class="weui-panel weui-panel_access">
+            <div class="weui-panel__hd">
+                <span class="expo-booth-name">这是选中的展台</span>
+                <button class="expo-btn-dest" type="button">走起</button>
+            </div>
+            <div class="weui-panel__bd">
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__bd">
+                        <button class="expo-btn-remind" type="button">开始提醒</button>
+                        <p class="expo-activity-date">2017年7月25日 (周二)</p>
+                        <p class="expo-activity-time">10:00-11:00</p>
+                        <p class="expo-activity-intro">活动: 这里是即将举办的活动</p>
+                    </div>
+                </a>
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__bd">
+                        <button class="expo-btn-remind" type="button">开始提醒</button>
+                        <p class="expo-activity-date">2017年7月25日 (周二)</p>
+                        <p class="expo-activity-time">10:00-11:00</p>
+                        <p class="expo-activity-intro">活动: 这里是即将举办的活动</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="expo-result" class="weui-popup__container popup-bottom">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal">
+        <div class="weui-panel weui-panel_access">
+            <div class="weui-panel__bd">
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">我爱健身</h4>
+                        <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+                        <div>
+                            <span class="expo-booth-cate">健身器材</span>
+                            <span class="expo-booth-number">展位号: C102</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">我爱健身</h4>
+                        <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+                        <div>
+                            <span class="expo-booth-cate">健身器材</span>
+                            <span class="expo-booth-number">展位号: C102</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">我爱健身</h4>
+                        <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+                        <div>
+                            <span class="expo-booth-cate">健身器材</span>
+                            <span class="expo-booth-number">展位号: C102</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="expo-navi" class="weui-popup__container">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal">
+        <div class="weui-cells">
+            <div class="weui-cell">
+                <i id="expo-navi-close" class="fa fa-close" aria-hidden="true"></i>
+            </div>
+        </div>
+
+        <div class="weui-cells expo-navi-info">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <span class="dot-blue"></span>
+                    <input id="expo-navi-start" class="expo-navi-input" placeholder="输入起点"/>
+                </div>
+                <div class="weui-cell__ft">
+                    <button class="expo-navi-select" type="button">地图选点</button>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <span class="dot-red"></span>
+                    <input id="expo-navi-end" class="expo-navi-input" placeholder="输入终点"/>
+                </div>
+                <div class="weui-cell__ft">
+                    <button class="expo-navi-select" type="button">地图选点</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="weui-cells expo-booth-hot">
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    热门展台
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div id="expo-booth-hot" class="weui-cell__bd">
+                    <button class="expo-booth-btn" type="button">贵州茅台酒业</button>
+                    <button class="expo-booth-btn" type="button">贵州茅台酒业</button>
+                    <button class="expo-booth-btn" type="button">贵州茅台酒业</button>
+                    <button class="expo-booth-btn" type="button">贵州茅台酒业</button>
+                    <button class="expo-booth-btn" type="button">贵州茅台酒业</button>
+                    <button class="expo-booth-btn" type="button">贵州茅台酒业</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="weui-cells expo-activity-hot">
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    热门活动
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <img src="img/icon_gift.png"/>
+                </div>
+                <div class="weui-cell__bd expo-activity-name">
+                    贵州茅台-天子宴白酒发布会
+                </div>
+                <div class="weui-cell__ft">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <img src="img/icon_gift.png"/>
+                </div>
+                <div class="weui-cell__bd expo-activity-name">
+                    贵州茅台-天子宴白酒发布会
+                </div>
+                <div class="weui-cell__ft">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <img src="img/icon_gift.png"/>
+                </div>
+                <div class="weui-cell__bd expo-activity-name">
+                    贵州茅台-天子宴白酒发布会
+                </div>
+                <div class="weui-cell__ft">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <img src="img/icon_gift.png"/>
+                </div>
+                <div class="weui-cell__bd expo-activity-name">
+                    贵州茅台-天子宴白酒发布会
+                </div>
+                <div class="weui-cell__ft">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <img src="img/icon_gift.png"/>
+                </div>
+                <div class="weui-cell__bd expo-activity-name">
+                    贵州茅台-天子宴白酒发布会
+                </div>
+                <div class="weui-cell__ft">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+
+        <button class="expo-navi-search" type="button">规划路径</button>
+    </div>
+</div>
+
+<div id="expo-area" class="weui-popup__container">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal">
+        <div class="weui-cells expo-area-search">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <img src="img/icon_magnifier.png"/>
+                    <input class="weui-input"/>
+                </div>
+                <div class="weui-cell__ft">
+                    <button class="weui-btn_mini">搜索</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="weui-cells expo-area-swiper">
+            <div class="weui-cell">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" style="background-color: red">
+                        </div>
+                        <div class="swiper-slide" style="background-color: green">
+                        </div>
+                        <div class="swiper-slide" style="background-color: blue">
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="weui-cells expo-area-ad">
+            <div class="weui-cell">
+                广告位招租
+            </div>
+        </div>
+
+        <div class="weui-cells expo-area-hot">
+            <div class="weui-panel weui-panel_access">
+                <div class="weui-panel__hd">热门展台</div>
+                <div class="weui-panel__bd">
+                    <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-media-box__hd">
+                            <img class="weui-media-box__thumb" src="">
+                        </div>
+                        <div class="weui-media-box__bd">
+                            <h4 class="weui-media-box__title">我爱健身</h4>
+                            <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+                            <div>
+                                <span class="expo-booth-cate">健身器材</span>
+                                <span class="expo-booth-number">展位号: C102</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-media-box__hd">
+                            <img class="weui-media-box__thumb" src="">
+                        </div>
+                        <div class="weui-media-box__bd">
+                            <h4 class="weui-media-box__title">我爱健身</h4>
+                            <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+                            <div>
+                                <span class="expo-booth-cate">健身器材</span>
+                                <span class="expo-booth-number">展位号: C102</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="weui-panel__ft">
+                    <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+                        <div class="weui-cell__bd">查看更多</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="expo-booth" class="weui-popup__container">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal">
+        <div class="weui-panel weui-panel_access expo-booth-info">
+            <div class="weui-panel__bd">
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="#"/>
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">我爱打球</h4>
+                        <p class="weui-media-box__desc">展台编号: C102 类别: 健身</p>
+                        <p class="weui-media-box__info">电话: 12345678910</p>
+                        <p class="weui-media-box__info">邮箱: 123456789@qq.com</p>
+                        <p class="weui-media-box__info">网址: www.baidu.com</p>
+
+                        <button class="expo-booth-navi" type="button">走起</button>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="weui-cells expo-booth-intro">
+            <div class="weui-cell">
+                公司简介
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>
+                        在中文里，展览会名称有博览会、展览会、展览、展销会、博览展销会、看样订货会、展览交流会、交易会、贸易洽谈会、展示会、展评会、样品陈列、庙会、集市、墟、场等等。另外，还有一些展览会使用非专业名词。比如：日（澳大利亚全国农业日Australian National Field Days），周（柏林国际绿色周Berlin International Green Week）、市场（亚特兰大国际地毯市场International Carpet and Rug Market）、中心（汉诺威办公室、信息、电信世界中心World Center for Office-Information-Telecommunication）等，加上这些非专业的名称，展览会名称将更多。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="weui-cells expo-booth-product">
+            <div class="weui-cell">
+                亮点产品
+            </div>
+            <div class="weui-cell">
+
+            </div>
+        </div>
+
+        <div class="weui-cells expo-booth-image">
+            <div class="weui-cell">
+                产品图片
+            </div>
+            <div class="weui-cell">
+
+            </div>
+        </div>
+
+        <div class="weui-cells expo-booth-hot">
+            <div class="weui-cell">
+                88%的人去过这些展台
+            </div>
+            <div class="weui-cell">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/jquery-weui/dist/js/jquery-weui.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="node_modules/swiper/dist/js/swiper.min.js"></script>
+
+<script src="lib/fengmap/fengmap.min.js"></script>
+
+<script>
+    (function () {
+        'use strict';
+
+        var map,
+            myNavi,
+            myToolControl,
+            myZoomControl,
+            myGroupControl;
+
+        var fmapID = 'hiexhibition-2017cine';
+
+        $(function () {
+            map = new fengmap.FMMap({
+                appName: '展汇通',
+                key: 'd29d2e19effa564ecc33fee274663bc4',
+                container: document.getElementById('expo-map'),
+                mapServerURL: './resource/map/' + fmapID,
+//                mapThemeURL: './resource/theme',
+                defaultThemeName: '4003',
+                focusAlphaMode: true,
+                focusAlpha: 0.3,
+                defaultViewMode: fengmap.FMViewMode.MODE_2D,
+                defaultControlsPose: fengmap.FMDirection.EAST,
+                defaultMapScale: 800,
+                defaultTiltAngle: 45,
+//                defaultGroupSpace: 10,
+                defaultBackgroundColor: '#ffffff',
+                modelSelectedEffect: true
+            });
+            // 加载地图数据
+            map.openMapById(fmapID);
+            // 地图加载完成
+            map.on('loadComplete', function () {
+                map.visibleGroupIDs = map.groupIDs;
+                map.focusGroupID = map.groupIDs[map.groupIDs.length - 1];
+
+                // 图层控件
+                myToolControl = new fengmap.toolControl(map, {
+                    position: fengmap.controlPositon.RIGHT_TOP,
+                    offset: {
+                        x: 5,
+                        y: 100
+                    },
+                    // 显示2D,3D切换按钮
+                    groupsButtonNeeded: false,
+                    init2D: true,
+                    initGroups: true,
+                    // type表示按钮类型,value表示对应的功能值
+                    clickCallBack: function (type, value) {
+                        // ...
+                    }
+                });
+                // 缩放控件
+                myZoomControl = new fengmap.zoomControl(map, {
+                    position: fengmap.controlPositon.RIGHT_TOP,
+                    // 设置位置偏移量
+                    offset: {
+                        x: 5,
+                        y: 150
+                    }
+                });
+                // 楼层控件
+                myGroupControl = new fengmap.scrollGroupsControl(map, {
+                    position: fengmap.controlPositon.RIGHT_TOP,
+                    // 设置位置偏移量
+                    offset: {
+                        x: 5,
+                        y: 260
+                    },
+                    // 显示所有楼层
+                    allLayer: true
+                });
+                myGroupControl.onChange(function (groups, allLayer) {
+                    // groups 表示当前要切换的楼层ID数组,
+                    // allLayer表示当前楼层是单层状态还是多层状态。
+                });
+                // 导航控件
+                myNavi = new fengmap.FMNavigation({
+                    map: map,
+                    locationMarkerUrl: 'img/fengmap/navi.png',
+                    locationMarkerSize: 32,
+                    speed: 10,
+                    followPosition: true,
+                    followAngle: true,
+                    scaleLevel: 0,
+                    lineStyle: {
+                        lineType: fengmap.FMLineType.FMARROW,
+                        smooth: true,
+                        lineWidth: 5
+                    }
+                });
+                // 导航进行中
+                myNavi.on('walking', function (data) {
+
+                });
+                // 导航跨越楼层
+                myNavi.on('crossGroup', function (groupID) {
+
+                });
+                // 导航结束
+                myNavi.on('complete', function () {
+                    // 楼层控件可点击
+                    myGroupControl.enableExpand = true;
+                });
+
+//                $('#expo-booth').popup();
+            });
+            // 地图点击事件
+            map.on('mapClickNode', function (event) {
+                $("#expo-activity").popup();
+
+                var selectedModel = event.target;
+                switch (event.nodeType) {
+                    case fengmap.FMNodeType.MODEL: {
+
+                    }
+                        break;
+                    default:
+                        break;
+                }
+            });
+
+            var mySwiper = new Swiper('.swiper-container', {
+                pagination: '.swiper-pagination'
+            });
+
+            $('#expo-btn-2D').click(function () {
+                map.viewMode = fengmap.FMViewMode.MODE_2D;
+            });
+            $('#expo-btn-3D').click(function () {
+                map.viewMode = fengmap.FMViewMode.MODE_3D;
+            });
+
+            // 点击导航按钮
+            $('#expo-btn-navi').click(function () {
+                $('#expo-navi-close').one('click', function () {
+                    $.closePopup();
+                });
+                $('#expo-navi').popup();
+            });
+
+            // 点击搜索按钮
+            $('#expo-area-search').click(function () {
+                $('#expo-area').popup();
+            });
+
+            // 点击路径规划
+            $('#expo-navi-search').click(function () {
+                $.closePopup();
+            });
+
+        });
+
+    })();
+</script>
+</body>
+</html>

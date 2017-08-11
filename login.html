@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>用户登陆</title>
+
+    <link rel="stylesheet" href="node_modules/weui/dist/style/weui.min.css"/>
+    <link rel="stylesheet" href="node_modules/jquery-weui/dist/css/jquery-weui.min.css"/>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/login.css"/>
+</head>
+<body>
+
+<div id="login-form">
+    <div class="weui-cells">
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">+86</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="tel" pattern="[0-9]*" placeholder="请输入手机号">
+            </div>
+        </div>
+    </div>
+
+    <div class="weui-cells">
+        <div class="weui-cell weui-cell_vcode">
+            <div class="weui-cell__hd">
+                <label class="weui-label">验证码</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" placeholder="请输入验证码">
+            </div>
+            <div class="weui-cell__ft">
+                <button class="weui-vcode-btn" type="button">获取验证码</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="weui-cells">
+        <div class="weui-cell">
+            <a id="login-confirm" href="index.html" target="_self">确认登录</a>
+        </div>
+    </div>
+</div>
+
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/jquery-weui/dist/js/jquery-weui.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script>
+
+</script>
+</body>
+</html>
