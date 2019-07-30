@@ -1,1 +1,1 @@
-# Exhibition indoor map
+# expo-map
