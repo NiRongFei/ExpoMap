@@ -1,3 +1,3 @@
 # expo-map
 
-### Indoor map for exhibition, based on fengmap and jquery-weui.
+### Expo indoor map on mobile, based on fengmap and jquery-weui.
